@@ -24,7 +24,6 @@ spec:
       passwordHash: $2a$12$XStXAMW19LmvcT3sDOdaEOw9r4IhpZoZIkhBKr6HYUEJdKaTPsqHy
       username: admin
     service:
-      create: true
+      port: 9001
+      targetPort: 9001
       type: ClusterIP
-      port:
-        https: 9001
