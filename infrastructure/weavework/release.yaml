@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: weavework-hr
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  chart:
+    spec:
+      chart: weave-gitops
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: weavework
+      version: 4.0.x
+  values:
+    adminUser:
+      create: true
+      passwordHash: $2a$12$XStXAMW19LmvcT3sDOdaEOw9r4IhpZoZIkhBKr6HYUEJdKaTPsqHy
+      username: admin
+    service:
+      create: true
+      type: ClusterIP
+      port:
+        https: 9001
