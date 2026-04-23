@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  template:
+    spec:
+      securityContext:
+        # Répond à la politique 'require-run-as-nonroot'
+        runAsNonRoot: true
+        runAsUser: 1000
+        # Répond à la politique 'restrict-seccomp-strict'
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.3.5
+          securityContext:
+            # Répond à la politique 'disallow-privilege-escalation'
+            allowPrivilegeEscalation: false
+            # Répond à la politique 'hug-test' (Root filesystem read-only)
+            readOnlyRootFilesystem: true
+            # Répond aux politiques 'drop-all-capabilities'
+            capabilities:
+              drop:
+                - ALL
