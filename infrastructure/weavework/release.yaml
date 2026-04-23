@@ -13,6 +13,12 @@ spec:
         kind: GitRepository
         name: flux-system
   values:
+    deployment:
+      additionalContainers: [ ] # Gardez-le si déjà présent
+      securityContext:
+        capabilities:
+          drop:
+            - NET_RAW
     adminUser:
       create: true
       passwordHash: $2a$12$XStXAMW19LmvcT3sDOdaEOw9r4IhpZoZIkhBKr6HYUEJdKaTPsqHy
