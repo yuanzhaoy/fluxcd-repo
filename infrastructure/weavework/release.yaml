@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: weavework
-      version: 4.0.x
+      version: 4.0.36
   values:
     adminUser:
       create: true

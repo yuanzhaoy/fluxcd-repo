@@ -5,5 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: https://charts.dev.weave.works
-  insecure: true
+  url: oci://ghcr.io/weaveworks/charts
