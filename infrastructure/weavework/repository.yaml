@@ -6,3 +6,4 @@ metadata:
 spec:
   interval: 1m0s
   url: https://charts.dev.weave.works
+  insecure: true
