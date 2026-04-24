@@ -12,42 +12,4 @@ spec:
   secretRef:
     name: flux-system
   url: https://github.com/yuanzhaoy/fluxcd-repo.git
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: flux-system
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./clusters/sbx/core
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: flux-system-infra-weavework
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./infrastructure/weavework
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: flux-system-infra-flux-operator
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./infrastructure/flux-operator
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
+

@@ -8,8 +8,6 @@ spec:
     version: "2.x" # Flexibilité maximale pour les mises à jour mineures
     registry: "ghcr.io/fluxcd"
     artifact: "oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests"
-
-  # Sélection précise des fonctionnalités
   components:
     - source-controller
     - kustomize-controller
@@ -17,17 +15,16 @@ spec:
     - notification-controller
     - image-reflector-controller # Optionnel: à ajouter si vous gérez des images
     - image-automation-controller # Optionnel: à ajouter pour l'auto-commit
-
   cluster:
     type: kubernetes
     size: medium
     multitenant: false
     networkPolicy: true
     domain: "cluster.local" # Valeur standard pour la majorité des clusters K8s
-
   sync:
     kind: GitRepository
     url: "https://github.com/yuanzhaoy/fluxcd-repo.git"
     ref: "refs/heads/main"
     path: "./clusters/sbx/core"
     pullSecret: "flux-system"
+
