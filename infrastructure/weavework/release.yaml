@@ -16,7 +16,7 @@ spec:
     image:
       tag: v0.38.0
     deployment:
-      additionalContainers: [ ] # Gardez-le si déjà présent
+      additionalContainers: [ ]
       securityContext:
         capabilities:
           drop:
