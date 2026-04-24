@@ -5,9 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   distribution:
-    version: "2.x" # Flexibilité maximale pour les mises à jour mineures
+    version: "2.x"
     registry: "ghcr.io/fluxcd"
-    artifact: "oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests"
   components:
     - source-controller
     - kustomize-controller
