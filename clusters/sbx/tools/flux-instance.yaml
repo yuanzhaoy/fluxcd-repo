@@ -27,4 +27,3 @@ spec:
     ref: "refs/heads/main"
     path: "./clusters/sbx/tools"
     pullSecret: "flux-system"
-
