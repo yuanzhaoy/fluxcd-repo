@@ -24,3 +24,10 @@ spec:
     multitenant: false
     networkPolicy: true
     domain: "cluster.local" # Valeur standard pour la majorité des clusters K8s
+
+  sync:
+    kind: GitRepository
+    url: "https://github.com/yuanzhaoy/fluxcd-repo.git"
+    ref: "refs/heads/main"
+    path: "./clusters/sbx/core"
+    pullSecret: "flux-system"
