@@ -1,0 +1,29 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: hello-world-tools
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: "./apps/hello-world"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  patches:
+    - target:
+        kind: HelmRelease
+        name: hello-nginx
+      patch: |
+        - op: add
+          path: /spec/values
+          value:
+            staticSiteConfigMap: "hello-b-config"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-b-config
+  namespace: flux-system
+data:
+  index.html: "<h1>Hello from Cluster Tools</h1>"
