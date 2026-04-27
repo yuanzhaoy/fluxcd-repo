@@ -1,17 +1,24 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: hello-nginx
+  name: podinfo-hello-world
   namespace: hello-world
 spec:
   interval: 10m
+  releaseName: podinfo
+  targetNamespace: hello-world
   chart:
     spec:
-      chart: nginx
-      version: ">=15.0.0 <16.0.0"
+      chart: podinfo
+      version: "6.6.0"
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: podinfo
         namespace: flux-system
+  values:
+    ui:
+      message: "Mon Hello World via Flux et Cilium !"
+      color: "#345ecf"
+    replicaCount: 1
   install:
     createNamespace: true
