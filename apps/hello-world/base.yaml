@@ -4,6 +4,7 @@ metadata:
   name: hello-nginx
   namespace: hello-world
 spec:
+  interval: 10m
   chart:
     spec:
       chart: nginx
