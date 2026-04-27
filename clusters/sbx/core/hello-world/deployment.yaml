@@ -43,6 +43,9 @@ spec:
             - mountPath: /var/cache/nginx
               name: cache
       volumes:
+        - name: html-volume
+          configMap:
+            name: hello-world-html
         - name: tmp
           emptyDir: {}
         - name: cache
