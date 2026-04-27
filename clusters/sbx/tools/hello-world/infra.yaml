@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: "./infra/source" # Le dossier où se trouve ton bitnami.yaml
+  path: "./infrastructure/source" # Le dossier où se trouve ton bitnami.yaml
   prune: true
   sourceRef:
     kind: GitRepository
