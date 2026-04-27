@@ -1,24 +1,67 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: podinfo
+  name: podinfo-hello
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
 metadata:
-  name: podinfo
-  namespace: podinfo
+  name: podinfo-hello
+  namespace: flux-system
 spec:
+  interval: 30m0s
+  path: ./kustomize
+  prune: true
+  retryInterval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: podinfo-hello
+  targetNamespace: podinfo-hello
+  timeout: 3m0s
+  wait: true
+  patches:
+    - target:
+        kind: Deployment
+        name: podinfo-hello
+      patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: podinfo-hello
+        spec:
+          template:
+            spec:
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 1000
+                seccompProfile:
+                  type: RuntimeDefault
+              containers:
+                - name: podinfo  # Doit être identique au nom dans base.yaml
+                  env:
+                    - name: PODINFO_UI_MESSAGE
+                      value: "<h1>Hello world from Cluster CORE</h1>"
+                  securityContext:
+                    allowPrivilegeEscalation: false
+                    readOnlyRootFilesystem: true
+                    runAsNonRoot: true
+                    capabilities:
+                      drop:
+                        - ALL
+                    seccompProfile:
+                      type: RuntimeDefault
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: podinfo-hello
+  namespace: podinfo-hello
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9898
+      targetPort: 9898
+      protocol: TCP
+      name: http
   selector:
-    matchLabels:
-      app: podinfo
-  template:
-    metadata:
-      labels:
-        app: podinfo
-    spec:
-      containers:
-        - name: podinfod
-          image: ghcr.io/stefanprodan/podinfo:6.11.2
-          ports:
-            - containerPort: 9898
+    app: podinfo-hello
