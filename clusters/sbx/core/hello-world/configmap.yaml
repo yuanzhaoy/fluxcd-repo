@@ -14,7 +14,7 @@ data:
       </style>
     </head>
     <body>
-      <h1>Hello World depuis Flux !</h1>
-      <p>Ce texte a été modifié via une ConfigMap.</p>
+      <h1>Hello World from Flux Cluster Core SBX!</h1>
+      <p>This text was modified via a ConfigMap.</p>
     </body>
     </html>
