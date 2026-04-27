@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: "./infrastructure/source"
+  path: ./clusters/sbx/core/hello-world
   prune: true
   sourceRef:
     kind: GitRepository

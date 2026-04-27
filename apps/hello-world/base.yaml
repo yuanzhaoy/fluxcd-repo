@@ -3,37 +3,22 @@ kind: Namespace
 metadata:
   name: podinfo
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: podinfo
-  namespace: flux-system
+  namespace: podinfo
 spec:
-  interval: 30m
-  path: ./kustomize
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: podinfo
-  targetNamespace: podinfo
-  patches:
-    - target:
-        kind: Deployment
-        name: podinfo
-      patch: |-
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: podinfo
-        spec:
-          template:
-            spec:
-              securityContext:
-                runAsNonRoot: true
-                runAsUser: 1000
-                seccompProfile: {type: RuntimeDefault}
-              containers:
-                - name: podinfod
-                  securityContext:
-                    allowPrivilegeEscalation: false
-                    capabilities: {drop: ["ALL"]}
+  selector:
+    matchLabels:
+      app: podinfo
+  template:
+    metadata:
+      labels:
+        app: podinfo
+    spec:
+      containers:
+        - name: podinfod
+          image: ghcr.io/stefanprodan/podinfo:6.11.2
+          ports:
+            - containerPort: 9898
