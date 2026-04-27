@@ -23,7 +23,7 @@ spec:
     - target:
         kind: Deployment
         name: podinfo
-      patch: |
+      patch: |-
         apiVersion: apps/v1
         kind: Deployment
         metadata:
@@ -37,7 +37,10 @@ spec:
                 seccompProfile:
                   type: RuntimeDefault
               containers:
-                - name: podinfod  
+                - name: podinfo  # Doit être identique au nom dans base.yaml
+                  env:
+                    - name: PODINFO_UI_MESSAGE
+                      value: "<h1>Hello from Cluster CORE</h1>"
                   securityContext:
                     allowPrivilegeEscalation: false
                     readOnlyRootFilesystem: true
@@ -47,11 +50,3 @@ spec:
                         - ALL
                     seccompProfile:
                       type: RuntimeDefault
-
-    - target:
-        kind: Deployment
-        name: podinfo
-      patch: |
-        - op: replace
-          path: /spec/template/spec/containers/0/env/0/value
-          value: "<h1>Hello from Cluster CORE</h1>"
