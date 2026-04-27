@@ -19,19 +19,19 @@ spec:
     ui:
       message: "Mon Hello World via Flux et Cilium !"
       color: "#345ecf"
-    securityContext:
+    podSecurityContext:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 3000
       fsGroup: 2000
       seccompProfile:
         type: RuntimeDefault
-      containerSecurityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true # Pour la policy "hug-test"
-        capabilities:
-          drop:
-            - ALL
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+          - ALL
     replicaCount: 1
   install:
     createNamespace: true
