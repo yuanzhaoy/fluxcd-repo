@@ -1,0 +1,23 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: podinfo-tools
+  namespace: flux-system
+spec:
+  patches:
+    - target:
+        kind: Deployment
+        name: podinfo
+      patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: podinfo
+        spec:
+          template:
+            spec:
+              containers:
+                - name: podinfod
+                  env:
+                    - name: PODINFO_UI_MESSAGE
+                      value: "<h1>Hello from Cluster TOOLS</h1>"
