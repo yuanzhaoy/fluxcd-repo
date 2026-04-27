@@ -50,3 +50,18 @@ spec:
                         - ALL
                     seccompProfile:
                       type: RuntimeDefault
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9898
+      targetPort: 9898
+      protocol: TCP
+      name: http
+  selector:
+    app: podinfo
