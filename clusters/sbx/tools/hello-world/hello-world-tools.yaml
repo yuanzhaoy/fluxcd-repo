@@ -4,6 +4,7 @@ metadata:
   name: hello-world-tools
   namespace: flux-system
 spec:
+  targetNamespace: hello-world
   interval: 10m
   path: "./apps/hello-world"
   prune: true
@@ -19,6 +20,11 @@ spec:
           path: /spec/values
           value:
             staticSiteConfigMap: "hello-b-config"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hello-world
 ---
 apiVersion: v1
 kind: ConfigMap
