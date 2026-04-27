@@ -13,30 +13,34 @@ spec:
       labels:
         app: hello-world
     spec:
-      # Sécurité au niveau du Pod (Seccomp et NonRoot)
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
+        runAsUser: 101 # User par défaut de nginx-unprivileged
+        runAsGroup: 101
+        fsGroup: 101
         seccompProfile:
           type: RuntimeDefault
       containers:
-        - name: echoserver
-          # On utilise une image plus récente et sécurisée (nginxinc/nginx-unprivileged)
-          # car l'ancien echoserver tente de tourner en root (port 80)
+        - name: hello-world
           image: nginxinc/nginx-unprivileged:stable-alpine
           ports:
             - containerPort: 8080
-          # Sécurité au niveau du Conteneur (Privilèges et Capabilities)
           securityContext:
             allowPrivilegeEscalation: false
+            privileged: false
             readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
-          # Obligatoire quand readOnlyRootFilesystem est true
+                - NET_RAW # On le rajoute explicitement au cas où la règle Kyverno le cherche spécifiquement
+          # Nginx unprivileged a besoin d'écrire dans /tmp et /var/cache/nginx
           volumeMounts:
             - mountPath: /tmp
-              name: tmp-volume
+              name: tmp
+            - mountPath: /var/cache/nginx
+              name: cache
       volumes:
-        - name: tmp-volume
+        - name: tmp
+          emptyDir: {}
+        - name: cache
           emptyDir: {}
