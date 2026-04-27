@@ -20,7 +20,6 @@ spec:
       message: "Mon Hello World via Flux et Cilium !"
       color: "#345ecf"
     securityContext:
-      enabled: true
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 3000
