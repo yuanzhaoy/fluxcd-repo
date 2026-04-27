@@ -37,7 +37,8 @@ spec:
                 seccompProfile:
                   type: RuntimeDefault
               containers:
-                - name: podinfo  # Doit être identique au nom dans base.yaml
+                - name: podinfo
+                  image: ghcr.io/stefanprodan/podinfo:6.3.5
                   env:
                     - name: PODINFO_UI_MESSAGE
                       value: "<h1>Hello world from Cluster CORE</h1>"
