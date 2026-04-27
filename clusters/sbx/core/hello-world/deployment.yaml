@@ -13,8 +13,30 @@ spec:
       labels:
         app: hello-world
     spec:
+      # Sécurité au niveau du Pod (Seccomp et NonRoot)
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: echoserver
-          image: k8s.gcr.io/echoserver:1.10
+          # On utilise une image plus récente et sécurisée (nginxinc/nginx-unprivileged)
+          # car l'ancien echoserver tente de tourner en root (port 80)
+          image: nginxinc/nginx-unprivileged:stable-alpine
           ports:
             - containerPort: 8080
+          # Sécurité au niveau du Conteneur (Privilèges et Capabilities)
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          # Obligatoire quand readOnlyRootFilesystem est true
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
