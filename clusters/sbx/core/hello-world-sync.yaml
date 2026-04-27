@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./apps/hello-world"
+  path: "/apps/hello-world/overlays/sbx-core"
   prune: true
   sourceRef:
     kind: GitRepository
