@@ -7,7 +7,7 @@ spec:
   interval: 5m
   prune: true
   wait: true
-  path: ./apps/hello-word
+  path: ./apps/hello-world
   sourceRef:
     kind: GitRepository
     name: flux-system
