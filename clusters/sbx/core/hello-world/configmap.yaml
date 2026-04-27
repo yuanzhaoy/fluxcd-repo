@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-world-html
+  namespace: hello-world
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Hello GitOps</title>
+      <style>
+        body { background-color: #2d3436; color: #fab1a0; text-align: center; font-family: sans-serif; padding-top: 50px; }
+      </style>
+    </head>
+    <body>
+      <h1>Hello World depuis Flux !</h1>
+      <p>Ce texte a été modifié via une ConfigMap.</p>
+    </body>
+    </html>
