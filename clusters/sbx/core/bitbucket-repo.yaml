@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: bitbucket-apps
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://git.hisaas.hcuge.ch/scm/kub/gitops_fluxcd.git
+  ref:
+    branch: main
+  secretRef:
+    name: bitbucket-auth
